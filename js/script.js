@@ -10,17 +10,26 @@ document.getElementById("startBtn").addEventListener("click", function (e) {
         millisecondsDisplay.innerText = miliSeconds++;
         if (miliSeconds > 100) {
             miliSeconds = 1;
-            secondsDisplay.innerText = seconds++;
+            if (seconds < 10) {
+                secondsDisplay.innerText = "0" + seconds++;
+            }
+            else {
+                secondsDisplay.innerText = seconds++;
+            }
             if (seconds > 60) {
-                minutesDisplay.innerText = minutes++;
                 seconds = 1;
+                if (minutes < 10) {
+                    minutesDisplay.innerText = "0" + minutes++;
+                }
+                else {
+                    minutesDisplay.innerText = minutes++;
+                }
                 if (minutes == 60) {
                     clearInterval(interval);
                 }
             }
-                
         }
-    }, 1);
+    }, 10);
     e.target.setAttribute("disabled", true);
 })
 
@@ -32,8 +41,8 @@ document.getElementById("stopBtn").addEventListener("click", function (e) {
 document.getElementById("resetBtn").addEventListener("click", function (e) {
     clearInterval(interval);
     [miliSeconds, seconds, minutes] = [0, 0, 0];
-    minutesDisplay.innerText = 0;
-    secondsDisplay.innerText = 0;
-    millisecondsDisplay.innerText = 0;
+    minutesDisplay.innerText = "00";
+    secondsDisplay.innerText = "00";
+    millisecondsDisplay.innerText = "00";
     e.target.parentNode.querySelector("#startBtn").removeAttribute("disabled");
 })
